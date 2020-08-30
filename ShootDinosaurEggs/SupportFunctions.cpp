@@ -1,15 +1,19 @@
 #include "SupportFunctions.h"
 
+
+
 SDL_Texture* SDL_SupportFunc::loadImg(SDL_Renderer* _renderer, string fileimg)
 {
-    //IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
-    g_screenSurface = IMG_Load(fileimg.c_str());
+    IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
+    g_surface = IMG_Load(fileimg.c_str());
 
     if (g_surface == NULL) {
         cout << "IMG_Load: " << IMG_GetError() << endl;
     }
-
-    g_texture = SDL_CreateTextureFromSurface(_renderer, g_surface);
+    else {
+        g_texture = SDL_CreateTextureFromSurface(_renderer, g_surface);
+        SDL_FreeSurface(g_surface);
+    }
 
     if (g_texture == NULL) {
         cout << "SDL_CreateTextureFromSurface: " << SDL_GetError() << endl;
@@ -34,6 +38,17 @@ void SDL_SupportFunc::cleanUp() {
 
     if (g_renderer != NULL) SDL_RenderClear(g_renderer);
     g_renderer = NULL;
+    //============================================================================
 
+    if (g_texture1 != NULL) SDL_DestroyTexture(g_texture1);
+    g_texture1 = NULL;
+
+    if (g_texture2 != NULL) SDL_DestroyTexture(g_texture2);
+    g_texture1 = NULL;
+
+    if (g_texture3 != NULL) SDL_DestroyTexture(g_texture3);
+    g_texture3 = NULL;
+    
+    cout << "Goi ham cleanUp" << endl;
     SDL_Quit();
 }

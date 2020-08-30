@@ -1,9 +1,12 @@
 #include "Object.h"
 Object::Object() {
+	//g_renderer = SDL_CreateRenderer(g_windows, -1, SDL_RENDERER_ACCELERATED);
+	//this->_renderer = g_renderer;
 	this->_renderer = NULL;
 	this->_surface = NULL;
 	this->_texture = NULL;
 	this->_rect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+	cout << "Goi ham tao Object k co doi so!" << endl;
 }
 Object::Object(SDL_Renderer* renderer, SDL_Rect rect, string file_path) {
 	this->_texture = NULL;
@@ -24,6 +27,8 @@ Object::Object(SDL_Renderer* renderer, SDL_Rect rect, string file_path) {
 			SDL_FreeSurface(this->_surface);
 		}
 	}
+
+	cout << "Goi ham tao Object co doi so!" << endl;
 }
 
 Object::~Object() {
@@ -35,6 +40,8 @@ Object::~Object() {
 
 	if (this->_texture != NULL) SDL_DestroyTexture(this->_texture);
 	this->_texture = NULL;
+
+	cout << "Goi ham huy Object!" << endl;
 }
 
 void Object::loadImage(SDL_Renderer* renderer, SDL_Rect rect, string file_path) {

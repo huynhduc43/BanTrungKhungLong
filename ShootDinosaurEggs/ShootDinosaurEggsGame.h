@@ -1,13 +1,43 @@
 #pragma once
-class ShootDinosaurEggsGame
+#ifndef SHOOTDINOSAUREGGSGAME_H_
+#define SHOOTDINOSAUREGGSGAME_H_
+#include "Object.h"
+#include "Egg.h"
+#include "SupportFunctions.h"
+using namespace SDL_SupportFunc;
+
+class ShootDinosaurEggsGame : public Object
 {
 private:
 
 public:
-	static const int DEFAULT_WIDTH = 1280;
-	static const int DEFAULT_HEIGHT = 720;
-	static const int DEFAULT_FPS = 60;
-public:
+	SDL_Window* _windows;
+	SDL_Surface* _screenSurface;
+	SDL_Surface* _background;
+	SDL_Texture* _texture;
+	SDL_Surface* _surface;
+	SDL_Renderer* _renderer;
 
+	//Texture background
+	SDL_Texture* _texture0;
+	SDL_Texture* _texture1;
+	SDL_Texture* _texture2;
+	SDL_Texture* _texture3;
+	Egg _egg;
+public:
+	ShootDinosaurEggsGame();
+	~ShootDinosaurEggsGame();
+public:
+	void initBackground();
+	bool initData();
+	void showBackground();
+
+	SDL_Texture* LoadImage(SDL_Renderer* renderer, SDL_Rect rect, string file_path);
+	void showImageWithRect(SDL_Texture* texture, SDL_Rect rect);
+
+	void showImgTest();
 };
+#endif // !SHOOTDINOSAUREGGSGAME_H_
+
+
 
