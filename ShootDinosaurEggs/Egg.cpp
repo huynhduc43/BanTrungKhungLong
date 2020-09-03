@@ -4,7 +4,7 @@ Egg::Egg() {
 	this->_renderer = NULL;
 	this->_surface = NULL;
 	this->_texture = NULL;
-	this->_rect = { 0,0,1280,960 };
+	this->_rect = { 0,0,45,59 };
 	cout << "Goi ham tao Egg!" << endl;
 }
 
@@ -12,7 +12,7 @@ Egg::~Egg() {
 	cout << "Goi ham huy Egg!" << endl;
 }
 
-void Egg::loadImgEggWithType(SDL_Renderer* renderer, SDL_Rect rect, string type) {
+void Egg::loadImgEggWithType(SDL_Renderer* renderer, SDL_Rect rect, int type) {
 	this->_renderer = renderer;
 
 	if (this->_renderer == NULL) {
@@ -24,7 +24,7 @@ void Egg::loadImgEggWithType(SDL_Renderer* renderer, SDL_Rect rect, string type)
 	}
 
 	this->_rect = rect;
-	string file_path = "Images//eggs//egg" + type + ".png";
+	string file_path = "Images//eggs//egg" + to_string(type) + ".png";
 	//cout << file_path << endl;
 	this->_surface = IMG_Load(file_path.c_str());
 

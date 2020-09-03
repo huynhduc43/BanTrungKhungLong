@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #ifndef EGG_H_
 #define EGG_H_
 
@@ -17,8 +17,21 @@ public:
 	Egg();
 	~Egg();
 public:
-	void loadImgEggWithType(SDL_Renderer* renderer, SDL_Rect rect, string type);
+	SDL_Renderer* getRender() { return this->_renderer; }
+
+	SDL_Surface* getSurface() { return this->_surface; }
+
+	SDL_Texture* getTexture() { return this->_texture; }
+
+	void setRect(SDL_Rect rect) { this->_rect = rect; }
+	SDL_Rect getRect() { return this->_rect; }
+public:
+	//Load ảnh trứng với type (màu sắc của trứng)
+	void loadImgEggWithType(SDL_Renderer* renderer, SDL_Rect rect, int type);
+
 	//void showImage();
+
+	
 };
 #endif // !EGG_H_
 

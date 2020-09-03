@@ -36,6 +36,8 @@ public:
 	void showImageWithRect(SDL_Texture* texture, SDL_Rect rect);
 
 	void showImgTest();
+
+	void playGame(SDL_Event& mainEvent);
 };
 #endif // !SHOOTDINOSAUREGGSGAME_H_
 

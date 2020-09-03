@@ -142,12 +142,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EggUsedToShoot.h" />
     <ClInclude Include="Egg.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ShootDinosaurEggsGame.h" />
     <ClInclude Include="SupportFunctions.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EggUsedToShoot.cpp" />
     <ClCompile Include="Egg.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="ShootDinosaurEggsGame.cpp" />

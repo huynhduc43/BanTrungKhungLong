@@ -47,10 +47,11 @@ void ShootDinosaurEggsGame::initBackground() {
     _renderer = SDL_CreateRenderer(g_windows, -1, SDL_RENDERER_ACCELERATED);
 
     _texture0 = LoadImage(_renderer, { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT }, bk0);
-    _texture1 = LoadImage(_renderer, { 565, 42, 584, 875 }, bk1);
-    _texture2 = LoadImage(_renderer, { 130, 42, 442, 875 }, bk2);
-    _texture3 = LoadImage(_renderer, { 800, 820, 140, 123 }, cannon);
-    this->_egg.loadImgEggWithType(this->_renderer, { 565, 42, 50, 70 }, "0");
+    _texture1 = LoadImage(_renderer, { 572, 42, 578, 876 }, bk1);
+    _texture2 = LoadImage(_renderer, { 130, 42, 442, 876 }, bk2);
+    _texture3 = LoadImage(_renderer, { 791, 810, 140, 123 }, cannon);
+    //this->_egg.loadImgEggWithType(this->_renderer, { 572, 42, 45, 59 }, 3);
+    this->_egg.loadImgEggWithType(this->_renderer, { 846, 810, 46, 46 }, 0);
 }
 
 bool ShootDinosaurEggsGame::initData() {
@@ -79,7 +80,7 @@ void ShootDinosaurEggsGame::showBackground() {
     this->showImageWithRect(_texture3, { 800, 820, 140, 123 });
     //this->_egg.showImage();
     SDL_RenderPresent(_renderer);
-    //SDL_Delay(1000 / DEFAULT_FPS);
+    //SDL_Delay(10000 / DEFAULT_FPS);
 }
 
 SDL_Texture* ShootDinosaurEggsGame::LoadImage(SDL_Renderer* renderer, SDL_Rect rect, string file_path) {
@@ -112,6 +113,41 @@ void ShootDinosaurEggsGame::showImgTest() {
     //cout << "Called showImgTest" << endl;
     _egg.showImage();
     //this->showImageWithRect(_texture3, { 800, 820, 140, 123 });
-    SDL_RenderPresent(_renderer);
+    //SDL_RenderPresent(_renderer);
     //SDL_Delay(1000 / DEFAULT_FPS);
+}
+
+void ShootDinosaurEggsGame::playGame(SDL_Event &mainEvent) {
+    int mouse_x = 0;
+    int mouse_y = 0;
+    bool stop = false;
+
+    Object arrow;
+    arrow.loadImage(this->_renderer, { 800, 820, 69, 105 }, "Images//equipment//arrow.png");
+    while (SDL_PollEvent(&mainEvent) || stop == false) {
+        switch (mainEvent.type) {
+        case SDL_MOUSEMOTION: {
+            mouse_x = mainEvent.motion.x - 35;
+            mouse_y = mainEvent.motion.y;
+
+            //cout << "( " << mouse_x << ", " << mouse_y << " )" << endl;
+            break;
+        }
+        case SDL_QUIT: {
+            stop = true;
+            break;
+        }
+        default:
+            break;
+        }
+
+        SDL_RenderClear(this->_renderer);
+
+        this->showBackground();
+        this->showImgTest();
+        //arrow.showImageWithRect({ mouse_x , mouse_y, 69, 105 });
+        arrow.showImageWithMouse(mainEvent);
+        SDL_RenderPresent(_renderer);
+        SDL_Delay(2000 / DEFAULT_FPS);
+    }
 }

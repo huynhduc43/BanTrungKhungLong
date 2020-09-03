@@ -3,6 +3,8 @@
 #define OBJECT_H_
 
 #include "SupportFunctions.h"
+#include <math.h>
+#define PI 3.14159265
 //using namespace SDL_SupportFunc;
 
 class Object
@@ -20,6 +22,8 @@ public:
 public:
 	void loadImage(SDL_Renderer* renderer, SDL_Rect rect, string file_path);
 	void showImage();
+	void showImageWithRect(SDL_Rect rect);
+	void showImageWithMouse(SDL_Event &event);
 };
 
 #endif // !OBJECT_H_

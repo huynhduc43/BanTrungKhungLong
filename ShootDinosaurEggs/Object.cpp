@@ -67,3 +67,29 @@ void Object::loadImage(SDL_Renderer* renderer, SDL_Rect rect, string file_path) 
 void Object::showImage() {
 	SDL_RenderCopy(this->_renderer, this->_texture, NULL, &this->_rect);
 }
+
+void Object::showImageWithRect(SDL_Rect rect) {
+	this->_rect = rect;
+	SDL_RenderCopy(this->_renderer, this->_texture, NULL, &this->_rect);
+}
+
+void Object::showImageWithMouse(SDL_Event& event) {
+
+	double angle;
+	
+	int y = 810 - event.motion.y;
+	int x = 846 - event.motion.x;
+	
+	angle = atan(y / x);
+	angle = (angle * 180) / PI;
+
+	if (x > 0) {
+		angle = -angle;
+	}
+
+	cout << "Goc = " << angle << endl;
+	SDL_Point* center = new SDL_Point { 846,810 };
+	SDL_RenderCopyEx(this->_renderer, this->_texture, NULL, &this->_rect, angle, center, SDL_FLIP_NONE);
+	//cout << "	" << SDL_GetError() << endl;
+	delete center;
+}
