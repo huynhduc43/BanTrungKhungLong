@@ -4,12 +4,14 @@
 #include "Object.h"
 #include "Egg.h"
 #include "SupportFunctions.h"
+#include "EggUsedToShoot.h"
 using namespace SDL_SupportFunc;
 
 class ShootDinosaurEggsGame : public Object
 {
 private:
-
+	bool isPlaying;
+	EggUsedToShoot _eggShoot;
 public:
 	SDL_Window* _windows;
 	SDL_Surface* _screenSurface;
@@ -23,7 +25,7 @@ public:
 	SDL_Texture* _texture1;
 	SDL_Texture* _texture2;
 	SDL_Texture* _texture3;
-	Egg _egg;
+
 public:
 	ShootDinosaurEggsGame();
 	~ShootDinosaurEggsGame();

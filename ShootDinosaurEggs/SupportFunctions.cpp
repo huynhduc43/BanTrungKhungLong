@@ -52,3 +52,15 @@ void SDL_SupportFunc::cleanUp() {
     cout << "Goi ham cleanUp" << endl;
     SDL_Quit();
 }
+
+void SDL_SupportFunc::findCenter(SDL_Point& center, SDL_Rect& rect) {
+    center.x = rect.x + rect.w / 2;
+    center.y = rect.y + rect.h / 2;
+    //rect.x = center.x - rect.w / 2;
+    //rect.y = center.y - rect.h / 2;
+    //cout << "center ( " << center.x << ", " << center.y << " )" << endl;
+}
+
+float SDL_SupportFunc::calcDistance2Point(SDL_Point pointA, SDL_Point pointB) {
+    return sqrt(pow((pointA.x - pointB.x), 2) + pow((pointA.y - pointB.y), 2));
+}

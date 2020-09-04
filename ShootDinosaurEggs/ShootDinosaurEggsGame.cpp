@@ -47,11 +47,12 @@ void ShootDinosaurEggsGame::initBackground() {
     _renderer = SDL_CreateRenderer(g_windows, -1, SDL_RENDERER_ACCELERATED);
 
     _texture0 = LoadImage(_renderer, { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT }, bk0);
-    _texture1 = LoadImage(_renderer, { 572, 42, 578, 876 }, bk1);
-    _texture2 = LoadImage(_renderer, { 130, 42, 442, 876 }, bk2);
-    _texture3 = LoadImage(_renderer, { 791, 810, 140, 123 }, cannon);
+    _texture1 = LoadImage(_renderer, { AREA_PLAY_BORDER_LEFT, AREA_PLAY_BORDER_TOP, AREA_PLAY_WIDTH, AREA_PLAY_HEIGHT }, bk1);
+    _texture2 = LoadImage(_renderer, { AREA_MENU_BORDER_LEFT, AREA_MENU_BORDER_TOP, AREA_MENU_WIDTH, AREA_MENU_HEIGHT }, bk2);
+    _texture3 = LoadImage(_renderer, { CANNON_POS_X, CANNON_POS_Y, CANNON_WIDTH, CANNON_HEIGHT }, cannon);
     //this->_egg.loadImgEggWithType(this->_renderer, { 572, 42, 45, 59 }, 3);
-    this->_egg.loadImgEggWithType(this->_renderer, { 846, 810, 46, 46 }, 0);
+    //this->_egg.loadImgEggWithType(this->_renderer, { 822, 788, 46, 46 }, 0);
+    this->_eggShoot.setEgg(this->_renderer, { 838, 788, 46, 46 }, 0);
 }
 
 bool ShootDinosaurEggsGame::initData() {
@@ -77,15 +78,18 @@ void ShootDinosaurEggsGame::showBackground() {
     this->showImageWithRect(_texture0, { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT });
     this->showImageWithRect(_texture1, { 565, 42, 584, 875 });
     this->showImageWithRect(_texture2, { 130, 42, 442, 875 });
-    this->showImageWithRect(_texture3, { 800, 820, 140, 123 });
-    //this->_egg.showImage();
-    SDL_RenderPresent(_renderer);
-    //SDL_Delay(10000 / DEFAULT_FPS);
+    this->showImageWithRect(_texture3, { 791, 800, 140, 124 });
+    this->_eggShoot.showImg();
+
+
 }
 
 SDL_Texture* ShootDinosaurEggsGame::LoadImage(SDL_Renderer* renderer, SDL_Rect rect, string file_path) {
     this->_renderer = renderer;
+
     this->_rect = rect;
+    findCenter(this->_center, this->_rect);
+
     this->_surface = IMG_Load(file_path.c_str());
 
     if (this->_surface == NULL) {
@@ -106,15 +110,13 @@ SDL_Texture* ShootDinosaurEggsGame::LoadImage(SDL_Renderer* renderer, SDL_Rect r
 }
 
 void ShootDinosaurEggsGame::showImageWithRect(SDL_Texture* texture, SDL_Rect rect) {
+    findCenter(this->_center, rect);
+    //rect.x = this->_center.x + rect.w / 2;
     SDL_RenderCopy(this->_renderer, texture, NULL, &rect);
 }
 
 void ShootDinosaurEggsGame::showImgTest() {
-    //cout << "Called showImgTest" << endl;
-    _egg.showImage();
-    //this->showImageWithRect(_texture3, { 800, 820, 140, 123 });
-    //SDL_RenderPresent(_renderer);
-    //SDL_Delay(1000 / DEFAULT_FPS);
+    //_egg.showImage();
 }
 
 void ShootDinosaurEggsGame::playGame(SDL_Event &mainEvent) {
@@ -123,14 +125,18 @@ void ShootDinosaurEggsGame::playGame(SDL_Event &mainEvent) {
     bool stop = false;
 
     Object arrow;
-    arrow.loadImage(this->_renderer, { 800, 820, 69, 105 }, "Images//equipment//arrow.png");
+    arrow.loadImage(this->_renderer, { Object::ARROW_POS_X ,Object::ARROW_POS_Y, Object::ARROW_WIDTH, Object::ARROW_HEIGHT}, "Images//equipment//arrow.png");
     while (SDL_PollEvent(&mainEvent) || stop == false) {
         switch (mainEvent.type) {
-        case SDL_MOUSEMOTION: {
-            mouse_x = mainEvent.motion.x - 35;
-            mouse_y = mainEvent.motion.y;
-
+        case SDL_MOUSEBUTTONDOWN: {
+            //mouse_x = mainEvent.motion.x - 35;
+            //mouse_y = mainEvent.motion.y;
             //cout << "( " << mouse_x << ", " << mouse_y << " )" << endl;
+
+            if (mainEvent.button.button == SDL_BUTTON_LEFT) {
+                //this->_eggShoot.setEgg(this->_renderer, { 822, 788, 46, 46 }, this->_eggShoot.getEgg().randomTypeOfEgg());
+            }
+
             break;
         }
         case SDL_QUIT: {
@@ -144,10 +150,10 @@ void ShootDinosaurEggsGame::playGame(SDL_Event &mainEvent) {
         SDL_RenderClear(this->_renderer);
 
         this->showBackground();
-        this->showImgTest();
-        //arrow.showImageWithRect({ mouse_x , mouse_y, 69, 105 });
+        //this->showImgTest()
         arrow.showImageWithMouse(mainEvent);
         SDL_RenderPresent(_renderer);
         SDL_Delay(2000 / DEFAULT_FPS);
+
     }
 }

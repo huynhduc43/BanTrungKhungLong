@@ -1,24 +1,24 @@
-#include "EggUsedToShoot.h"
+﻿#include "EggUsedToShoot.h"
 
 EggUsedToShoot::EggUsedToShoot() {
-	this->_egg.setRect({ 0,0,45,59 });
+	cout << "Goi ham tao EggUsedToShoot!" << endl;
+	this->_egg.setRect({ 0,0,46,46 });
 	this->_pos_x = 0;
 	this->_pos_y = 0;
 	this->_speed = 0;
 	this->_angle = 0;
-	this->_radius = 0;
-	this->_texture = NULL;
-	this->_renderer = NULL;
-	this->_surface = NULL;
+	//this->_texture = NULL;
+	//this->_renderer = NULL;
+	//this->_surface = NULL;
 }
 
 EggUsedToShoot::~EggUsedToShoot() {
-
+	cout << "Goi ham huy EggUsedToShoot!" << endl;
 }
 
-void EggUsedToShoot::showImgEggWithRect(SDL_Rect &rect) {
+void EggUsedToShoot::showImgEggWithRect(SDL_Rect rect) {
 	this->_egg.setRect(rect);
-	SDL_RenderCopy(this->_renderer, this->_texture, NULL, &this->_egg.getRect());
+	SDL_RenderCopy(_egg.getRender(), _egg.getTexture(), NULL, &this->_egg.getRect());
 }
 
 void EggUsedToShoot::changeDirectionToShoot(SDL_Event& occurEvents) {
@@ -32,4 +32,23 @@ void EggUsedToShoot::changeDirectionToShoot(SDL_Event& occurEvents) {
 
 		}
 
+}
+
+void EggUsedToShoot::handleCollisionEggWithWall() {
+	//Nếu trứng bắn chạm tường bên trái
+	if (this->_egg.getCenter().x - Egg::EGG_WIDTH == Object::AREA_PLAY_WIDTH) {
+
+	}
+	else if (this->_egg.getCenter().x + Egg::EGG_WIDTH == Object::AREA_PLAY_WIDTH) {
+
+	}
+}
+
+void EggUsedToShoot::getEggCopyConstructor(Egg& egg) {
+	egg.setRender(this->_egg.getRender());
+}
+
+void EggUsedToShoot::showImg() {
+	//findCenter(this->_egg.c)
+	SDL_RenderCopy(_egg.getRender(), _egg.getTexture(), NULL, &this->_egg.getRect());
 }

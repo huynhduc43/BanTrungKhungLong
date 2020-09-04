@@ -5,10 +5,10 @@
 class EggUsedToShoot
 {
 private:
-	SDL_Renderer* _renderer;
-	SDL_Surface* _surface;
-	SDL_Texture* _texture;
-	SDL_Rect _rect;
+	//SDL_Renderer* _renderer;
+	//SDL_Surface* _surface;
+	//SDL_Texture* _texture;
+	//SDL_Rect _rect;
 
 	Egg _egg;
 	Object _arrow;
@@ -18,23 +18,33 @@ private:
 
 	//Tốc độ bay của quả trứng khi được bắn (khoảng cách di chuyển sau khoảng thời gian t)
 	int _speed;
-
-	int _radius;
 	int _pos_x;
 	int _pos_y;
 public:
 	EggUsedToShoot();
 	~EggUsedToShoot();
-
 public:
-	//Hiển thị ảnh với vị trí rect
-	void showImgEggWithRect(SDL_Rect &rect);
+	Egg getEgg() { return this->_egg; }
+	void getEggCopyConstructor(Egg &egg);
+	void setEgg(SDL_Renderer* render, SDL_Rect rect, int type) {
+		this->_egg.setRender(render);
+		this->_egg.setRect(rect);
+		this->_egg.loadImgEggWithType(render, rect, type);
+	}
+public:
+	void showImg();
 
-	//Phát sinh trứng ngẫu nhiên
-	int randomTypeOfEgg();
+	//Hiển thị ảnh với vị trí rect
+	void showImgEggWithRect(SDL_Rect rect);
 
 	//Thay đổi hướng bắn
 	void changeDirectionToShoot(SDL_Event& occurEvents);
+
+	//Xử lý va chạm giữa trứng đạn với trứng mục tiêu
+	void handleCollisionEggWithEggs();
+
+	//Xử lý va chạm giữa trứng đạn với tường
+	void handleCollisionEggWithWall();
 };
 
 #endif // !EGG_USED_TO_SHOOT_H_
