@@ -44,8 +44,10 @@ void EggUsedToShoot::handleCollisionEggWithWall() {
 	}
 }
 
-void EggUsedToShoot::getEggCopyConstructor(Egg& egg) {
-	egg.setRender(this->_egg.getRender());
+void EggUsedToShoot::setEgg(SDL_Renderer* render, SDL_Rect rect, int type) {
+	this->_egg.setRender(render);
+	this->_egg.setRect(rect);
+	this->_egg.loadImgEggWithType(render, rect, type);
 }
 
 void EggUsedToShoot::showImg() {

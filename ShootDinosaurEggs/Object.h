@@ -40,8 +40,8 @@ public:
 	static const int ARROW_POS_Y = 650;
 
 	//Đại bác
-	static const int CANNON_WIDTH = 124;
-	static const int CANNON_HEIGHT = 140;
+	static const int CANNON_WIDTH = 140;
+	static const int CANNON_HEIGHT = 124;
 	static const int CANNON_POS_X = 791;
 	static const int CANNON_POS_Y = 800;
 public:
@@ -56,7 +56,6 @@ public:
 	void showImageWithRect(SDL_Rect rect);
 	void showImageWithMouse(SDL_Event &event);
 };
-
 #endif // !OBJECT_H_
 
 

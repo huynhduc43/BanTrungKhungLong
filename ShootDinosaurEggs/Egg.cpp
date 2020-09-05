@@ -1,6 +1,8 @@
 #include "Egg.h"
 
 Egg::Egg() {
+	this->_radius = EGG_WIDTH;
+	this->_exist = true;
 	this->_renderer = NULL;
 	this->_surface = NULL;
 	this->_texture = NULL;
@@ -18,6 +20,7 @@ Egg::~Egg() {
 
 void Egg::loadImgEggWithType(SDL_Renderer* renderer, SDL_Rect rect, int type) {
 	this->_renderer = renderer;
+	this->_type = type;
 
 	if (this->_renderer == NULL) {
 		cout << "_renderer is NULL" << endl;
@@ -28,7 +31,7 @@ void Egg::loadImgEggWithType(SDL_Renderer* renderer, SDL_Rect rect, int type) {
 	findCenter(this->_center, this->_rect);
 
 	string file_path = "Images//eggs//egg" + to_string(type) + ".png";
-	cout << file_path << endl;
+	//cout << file_path << endl;
 	this->_surface = IMG_Load(file_path.c_str());
 
 	if (this->_surface == NULL) {
@@ -38,8 +41,7 @@ void Egg::loadImgEggWithType(SDL_Renderer* renderer, SDL_Rect rect, int type) {
 		this->_texture = SDL_CreateTextureFromSurface(this->_renderer, this->_surface);
 
 		if (this->_texture == NULL) {
-			cout << "Img egg error" << endl;
-			cout << "SDL_CreateTextureFromSurface: " << SDL_GetError() << endl;
+			cout << "Egg::SDL_CreateTextureFromSurface: " << SDL_GetError() << endl;
 		}
 		else {
 			SDL_FreeSurface(this->_surface);
@@ -53,4 +55,10 @@ void Egg::loadImgEggWithType(SDL_Renderer* renderer, SDL_Rect rect, int type) {
 int Egg::randomTypeOfEgg() {
 	srand((int)time(0));
 	return rand() % (5 + 1 - 0);
+}
+
+void Egg::showImage() {
+	if (this->_exist) {
+		SDL_RenderCopy(this->_renderer, this->_texture, NULL, &this->_rect);
+	}
 }

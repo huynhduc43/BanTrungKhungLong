@@ -2,25 +2,25 @@
 
 
 
-SDL_Texture* SDL_SupportFunc::loadImg(SDL_Renderer* _renderer, string fileimg)
-{
-    IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
-    g_surface = IMG_Load(fileimg.c_str());
-
-    if (g_surface == NULL) {
-        cout << "IMG_Load: " << IMG_GetError() << endl;
-    }
-    else {
-        g_texture = SDL_CreateTextureFromSurface(_renderer, g_surface);
-        SDL_FreeSurface(g_surface);
-    }
-
-    if (g_texture == NULL) {
-        cout << "SDL_CreateTextureFromSurface: " << SDL_GetError() << endl;
-    }
-
-    return g_texture;
-}
+//SDL_Texture* SDL_SupportFunc::loadImg(SDL_Renderer* _renderer, string fileimg)
+//{
+//    IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
+//    g_surface = IMG_Load(fileimg.c_str());
+//
+//    if (g_surface == NULL) {
+//        cout << "IMG_Load: " << IMG_GetError() << endl;
+//    }
+//    else {
+//        g_texture = SDL_CreateTextureFromSurface(_renderer, g_surface);
+//        SDL_FreeSurface(g_surface);
+//    }
+//
+//    if (g_texture == NULL) {
+//        cout << "SDL_CreateTextureFromSurface: " << SDL_GetError() << endl;
+//    }
+//
+//    return g_texture;
+//}
 
 void SDL_SupportFunc::showImg(SDL_Renderer* render, SDL_Texture* texture, SDL_Rect destRect) {
     SDL_RenderCopy(render, texture, NULL, &destRect);

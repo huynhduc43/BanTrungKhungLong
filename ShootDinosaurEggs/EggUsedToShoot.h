@@ -18,6 +18,10 @@ private:
 
 	//Tốc độ bay của quả trứng khi được bắn (khoảng cách di chuyển sau khoảng thời gian t)
 	int _speed;
+
+	//Trạng thái quả trứng khi bắn
+	bool isFlying;
+
 	int _pos_x;
 	int _pos_y;
 public:
@@ -25,12 +29,8 @@ public:
 	~EggUsedToShoot();
 public:
 	Egg getEgg() { return this->_egg; }
-	void getEggCopyConstructor(Egg &egg);
-	void setEgg(SDL_Renderer* render, SDL_Rect rect, int type) {
-		this->_egg.setRender(render);
-		this->_egg.setRect(rect);
-		this->_egg.loadImgEggWithType(render, rect, type);
-	}
+
+	void setEgg(SDL_Renderer* render, SDL_Rect rect, int type);
 public:
 	void showImg();
 
