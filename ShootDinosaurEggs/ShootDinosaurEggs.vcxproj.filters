@@ -30,6 +30,9 @@
     <ClInclude Include="EggUsedToShoot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MapEggs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SupportFunctions.cpp">
@@ -48,6 +51,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EggUsedToShoot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MapEggs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
