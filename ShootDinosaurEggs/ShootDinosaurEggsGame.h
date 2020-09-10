@@ -12,20 +12,23 @@ class ShootDinosaurEggsGame
 {
 private:
 	bool isPlaying;
-	vector<SDL_Texture*> _listTexture;
-	vector<SDL_Rect> _listRect;
+	//vector<SDL_Texture*> _listTexture;
+	//vector<SDL_Rect> _listRect;
+
+	
+
 	EggUsedToShoot _eggShoot;
 	Object _arrow;
-
+	
 	Object temp;
 
-	SDL_Window* _windowsGame;
-	SDL_Surface* _screenSurfaceGame;
-	SDL_Surface* _backgroundGame;
-	SDL_Texture* _textureGame;
-	SDL_Surface* _surfaceGame;
-	SDL_Renderer* _rendererGame;
-	SDL_Rect _rectGame;
+	//SDL_Window* _windowsGame;
+	//SDL_Surface* _screenSurfaceGame;
+	//SDL_Surface* _backgroundGame;
+	//SDL_Texture* _textureGame;
+	//SDL_Surface* _surfaceGame;
+	//SDL_Renderer* _rendererGame;
+	//SDL_Rect _rectGame;
 
 public:
 	const SDL_Rect BACKGROUND = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
@@ -37,16 +40,16 @@ public:
 	ShootDinosaurEggsGame();
 	~ShootDinosaurEggsGame();
 public:
-	void initBackground();
-	bool initData();
-	void showBackground();
+	void initBackground(SDL_Renderer* renderer);
+	bool initData(SDL_Renderer*& renderer, SDL_Window* window);
+	void showBackground(SDL_Renderer* renderer);
 
-	SDL_Texture* LoadImage(SDL_Renderer* renderer, SDL_Rect rect, string file_path);
-	void showImageWithTexture_Rect(SDL_Texture* texture, SDL_Rect rect);
+	//SDL_Texture* LoadImage(SDL_Renderer* renderer, SDL_Rect rect, string file_path);
+	void showImageWithTexture_Rect(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect rect);
 	
 
 
-	void playGame(SDL_Event& mainEvent);
+	void playGame(SDL_Renderer* renderer, SDL_Event& mainEvent);
 };
 #endif // !SHOOTDINOSAUREGGSGAME_H_
 

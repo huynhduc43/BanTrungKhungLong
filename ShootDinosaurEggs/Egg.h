@@ -14,19 +14,15 @@ private:
 	bool _exist;
 	int _type;
 public:
-	static const int EGG_WIDTH = 46;
-	static const int EGG_HEIGHT = 46;
+	static const int EGG_WIDTH = 52;
+	static const int EGG_HEIGHT = 52;
 public:
 	Egg();
-	Egg(SDL_Renderer* render);
+	Egg(SDL_Renderer*& renderer, SDL_Rect rect, int type);
 	~Egg();
 public:
-	SDL_Renderer* getRender() { return this->_renderer; }
-	void setRender(SDL_Renderer* render) { this->_renderer = render; }
-
-	SDL_Surface* getSurface() { return this->_surface; }
-
-	SDL_Texture* getTexture() { return this->_texture; }
+	//SDL_Surface* getSurface() { return this->_surface; }
+	//SDL_Texture* getTexture() { return this->_texture; }
 
 	void setRect(SDL_Rect rect) { this->_rect = rect; }
 	SDL_Rect getRect() { return this->_rect; }
@@ -43,7 +39,7 @@ public:
 	//Load ảnh trứng với type (màu sắc của trứng)
 	void loadImgEggWithType(SDL_Renderer* renderer, SDL_Rect rect, int type);
 
-	void showImage();
+	void showImage(SDL_Renderer* renderer);
 
 	
 };

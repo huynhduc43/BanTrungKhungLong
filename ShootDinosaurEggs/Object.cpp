@@ -1,23 +1,14 @@
 ﻿#include "Object.h"
 Object::Object() {
-	//g_renderer = SDL_CreateRenderer(g_windows, -1, SDL_RENDERER_ACCELERATED);
-	//this->_renderer = g_renderer;
-	//this->_renderer = NULL;
 	this->_surface = NULL;
 	this->_texture = NULL;
 	this->_rect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 	this->_center = { 0,0 };
-	cout << "Goi ham tao Object k co doi so!" << endl;
+	//cout << "Goi ham tao Object k co doi so!" << endl;
 }
 
 Object::Object(SDL_Renderer* renderer, SDL_Rect rect, string file_path) {
-	//cout << "Khoi tao thanh cong !!!" << endl;
-	this->_texture = NULL;
-	this->_renderer = renderer;
-	cout << "Khoi tao = " << this->_renderer << endl;
 	this->_rect = rect;
-	//this->_center.x = this->_rect.x + this->_rect.w/2;
-	//this->_center.y = this->_rect.y + this->_rect.h/2;
 	findCenter(this->_center, rect);
 
 	this->_surface = IMG_Load(file_path.c_str());
@@ -26,8 +17,8 @@ Object::Object(SDL_Renderer* renderer, SDL_Rect rect, string file_path) {
 		cout << "IMG_Load: " << IMG_GetError() << endl;
 	}
 	else {
-		this->_texture = SDL_CreateTextureFromSurface(this->_renderer, this->_surface);
-		cout << "Khoi tao = "<< this->_renderer << endl;
+		this->_texture = SDL_CreateTextureFromSurface(renderer, this->_surface);
+		//cout << this->_texture << endl;
 		if (this->_texture == NULL) {
 			cout << "Object Constructor::SDL_CreateTextureFromSurface: " << SDL_GetError() << endl;
 		}
@@ -36,26 +27,21 @@ Object::Object(SDL_Renderer* renderer, SDL_Rect rect, string file_path) {
 		}
 	}
 
-	cout << "Goi ham tao Object co doi so!" << endl;
+	//cout << "Goi ham tao Object co doi so!" << endl;
 	//cout << SDL_GetError() << endl;
 }
 
 Object::~Object() {
-	if (this->_renderer != NULL) SDL_DestroyRenderer(this->_renderer);
-	this->_renderer = NULL;
-
-	if (this->_surface != NULL) SDL_FreeSurface(this->_surface);
+	/*if (this->_surface != NULL) SDL_FreeSurface(this->_surface);
 	this->_surface = NULL;
 
 	if (this->_texture != NULL) SDL_DestroyTexture(this->_texture);
-	this->_texture = NULL;
+	this->_texture = NULL;*/
 
-	cout << "Goi ham huy Object!" << endl;
+	///cout << "Goi ham huy Object!" << endl;
 }
 
 void Object::loadImage(SDL_Renderer* renderer, SDL_Rect rect, string file_path) {
-	this->_renderer = renderer;
-
 	this->_rect = rect;
 	findCenter(this->_center, this->_rect);
 	this->_surface = IMG_Load(file_path.c_str());
@@ -75,33 +61,29 @@ void Object::loadImage(SDL_Renderer* renderer, SDL_Rect rect, string file_path) 
 	}
 }
 
-void Object::showImage() {
-	//this->_rect.x = this->_center.x;
-	//this->_rect.y = this->_center.y;
-	//cout << "	Error: " << SDL_GetError() << endl;
-	SDL_RenderCopy(this->_renderer, this->_texture, NULL, &this->_rect);
+void Object::showImage(SDL_Renderer* renderer) {
+	SDL_RenderCopy(renderer, this->_texture, NULL, &this->_rect);
 }
 
-void Object::showImageWithRect(SDL_Rect rect) {
+void Object::showImageWithRect(SDL_Renderer* renderer, SDL_Rect rect) {
 	this->_rect.x = rect.x + rect.w / 2;
 	this->_rect.y = rect.y + rect.h / 2;
 
-	SDL_RenderCopy(this->_renderer, this->_texture, NULL, &this->_rect);
+	SDL_RenderCopy(renderer, this->_texture, NULL, &this->_rect);
 }
 
-void Object::showImageWithMouse(SDL_Event& event) {
-
+void Object::showImageWithMouse(SDL_Renderer* renderer, SDL_Event& event) {
 	double angle = 0;
 	double mouse_x = event.motion.x;
 	double mouse_y = event.motion.y;
 
-
-	if (mouse_y > 720) {
-		mouse_y = 720;
+	if (mouse_y > this->_center.y) {
+		mouse_y = this->_center.y;
 	}
 
-	double x = abs(861 - mouse_x);
-	double y = abs(720 - mouse_y);
+	//cout << "this->_center.x = " << this->_center.x << endl;
+	double x = abs(this->_center.x - mouse_x);
+	double y = abs(this->_center.y - mouse_y);
 
 	angle = atan(x / y);
 	angle = (angle * 180) / PI;
@@ -111,12 +93,28 @@ void Object::showImageWithMouse(SDL_Event& event) {
 	}
 
 	//cout << "( " << x << ", " << y << ")" << ", goc = " << angle << endl;
-	if (mouse_x < 861) {
+	if (mouse_x < this->_center.x) {
 		angle = -angle;
 	}
 
-	//SDL_Point* center = new SDL_Point { 865 ,800 };
+	if(mouse_x < 578 - 2 || mouse_x > 1150 + 2 || mouse_y < 42 - 2) angle = 0;
 
-	SDL_RenderCopyEx(this->_renderer, this->_texture, NULL, &this->_rect, angle, NULL, SDL_FLIP_NONE);
-	//delete center;
+	SDL_RenderCopyEx(renderer, this->_texture, NULL, &this->_rect, angle, NULL, SDL_FLIP_NONE);
+}
+
+void Object::free() {
+	cout << "Call free()" << endl;
+	/*if (this->_surface != NULL)
+	{
+		cout << "Call SDL_FreeSurface" << endl;
+		SDL_FreeSurface(this->_surface);
+		this->_surface = NULL;
+		cout << SDL_GetError() << endl;
+	}*/
+	cout << "surface = " << this->_surface << endl;
+	//this->_surface = NULL;
+
+	if (this->_texture != NULL) SDL_DestroyTexture(this->_texture);
+	this->_texture = NULL;
+	
 }

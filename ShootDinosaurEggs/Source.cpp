@@ -49,11 +49,11 @@ int main(int argc, char* argv[])
 {
     ShootDinosaurEggsGame Game;
 
-    if (Game.initData() == true)
+    if (Game.initData(g_renderer, g_windows) == true)
     {
-        Game.initBackground();
+        Game.initBackground(g_renderer);
         SDL_Event g_event;
-        Game.playGame(g_event);
+        Game.playGame(g_renderer, g_event);
     }
     SDL_DestroyRenderer(g_renderer);
     cleanUp();

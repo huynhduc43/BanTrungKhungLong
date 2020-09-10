@@ -22,34 +22,20 @@
 //    return g_texture;
 //}
 
-void SDL_SupportFunc::showImg(SDL_Renderer* render, SDL_Texture* texture, SDL_Rect destRect) {
-    SDL_RenderCopy(render, texture, NULL, &destRect);
-}
+//void SDL_SupportFunc::showImg(SDL_Renderer* render, SDL_Texture* texture, SDL_Rect destRect) {
+//    SDL_RenderCopy(render, texture, NULL, &destRect);
+//}
 
 void SDL_SupportFunc::cleanUp() {
-    if (g_background != NULL) SDL_FreeSurface(g_background);
-    g_background = NULL;
+    cout << "Goi ham cleanUp" << endl;
 
     if (g_windows != NULL) SDL_DestroyWindow(g_windows);
     g_windows = NULL;
 
-    if(g_texture != NULL) SDL_DestroyTexture(g_texture);
-    g_texture = NULL;
-
     if (g_renderer != NULL) SDL_RenderClear(g_renderer);
     g_renderer = NULL;
-    //============================================================================
 
-    if (g_texture1 != NULL) SDL_DestroyTexture(g_texture1);
-    g_texture1 = NULL;
-
-    if (g_texture2 != NULL) SDL_DestroyTexture(g_texture2);
-    g_texture1 = NULL;
-
-    if (g_texture3 != NULL) SDL_DestroyTexture(g_texture3);
-    g_texture3 = NULL;
-    
-    cout << "Goi ham cleanUp" << endl;
+    IMG_Quit(); 
     SDL_Quit();
 }
 
