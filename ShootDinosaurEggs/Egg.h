@@ -11,7 +11,7 @@ class Egg: public Object
 {
 private:
 	int _radius;
-	bool _exist;
+	int _exist;
 	int _type;
 public:
 	static const int EGG_WIDTH = 52;
@@ -27,11 +27,11 @@ public:
 	void setRect(SDL_Rect rect) { this->_rect = rect; }
 	SDL_Rect getRect() { return this->_rect; }
 
-	bool getExistEgg() { return this->_exist; }
-	void setExistEgg(bool value) { this->_exist = value; }
+	int getExistEgg() { return this->_exist; }
+	void setExistEgg(int value) { this->_exist = value; }
 
 	void setTypeEgg(int value) { this->_type = value; }
-	int getTypeEgg(int value) { return this->_type; }
+	int getTypeEgg() { return this->_type; }
 public:
 	//Phát sinh trứng ngẫu nhiên
 	int randomTypeOfEgg();

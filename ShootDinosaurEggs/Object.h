@@ -10,7 +10,7 @@ using namespace SDL_SupportFunc;
 class Object
 {
 protected:
-	SDL_Surface* _surface;
+	//SDL_Surface* _surface;
 	SDL_Texture* _texture;
 	SDL_Rect _rect;
 	SDL_Point _center;
@@ -53,6 +53,9 @@ public:
 
 	//Tâm quả trứng bắn
 	const SDL_Point EGGSHOOT_CENTER = { 864, 814 };
+
+	//Góc giới hạn
+	static const int ANGLE_MAX = 80;
 public:
 	Object();
 	Object(SDL_Renderer* renderer, SDL_Rect rect, string file_path);

@@ -1,6 +1,6 @@
 ﻿#include "Object.h"
 Object::Object() {
-	this->_surface = NULL;
+	//this->_surface = NULL;
 	this->_texture = NULL;
 	this->_rect = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
 	this->_center = { 0,0 };
@@ -11,19 +11,20 @@ Object::Object(SDL_Renderer* renderer, SDL_Rect rect, string file_path) {
 	this->_rect = rect;
 	findCenter(this->_center, rect);
 
-	this->_surface = IMG_Load(file_path.c_str());
+	SDL_Surface* _surface = IMG_Load(file_path.c_str());
 	
-	if (this->_surface == NULL) {
+	if (_surface == NULL) {
 		cout << "IMG_Load: " << IMG_GetError() << endl;
 	}
 	else {
-		this->_texture = SDL_CreateTextureFromSurface(renderer, this->_surface);
+		this->_texture = SDL_CreateTextureFromSurface(renderer, _surface);
 		//cout << this->_texture << endl;
 		if (this->_texture == NULL) {
 			cout << "Object Constructor::SDL_CreateTextureFromSurface: " << SDL_GetError() << endl;
 		}
 		else {
-			SDL_FreeSurface(this->_surface);
+			SDL_FreeSurface(_surface);
+			cout << "Da free surface" << endl;
 		}
 	}
 
@@ -32,31 +33,30 @@ Object::Object(SDL_Renderer* renderer, SDL_Rect rect, string file_path) {
 }
 
 Object::~Object() {
-	/*if (this->_surface != NULL) SDL_FreeSurface(this->_surface);
-	this->_surface = NULL;
-
-	if (this->_texture != NULL) SDL_DestroyTexture(this->_texture);
-	this->_texture = NULL;*/
-
-	///cout << "Goi ham huy Object!" << endl;
+	//free();
+	/*if (this->_texture != NULL) {
+		cout << this->_texture << endl;
+	}*/
+	
 }
 
 void Object::loadImage(SDL_Renderer* renderer, SDL_Rect rect, string file_path) {
 	this->_rect = rect;
 	findCenter(this->_center, this->_rect);
-	this->_surface = IMG_Load(file_path.c_str());
+	SDL_Surface* _surface = IMG_Load(file_path.c_str());
 
-	if (this->_surface == NULL) {
+	if (_surface == NULL) {
 		cout << "IMG_Load: " << IMG_GetError() << endl;
 	}
 	else {
-		this->_texture = SDL_CreateTextureFromSurface(renderer, this->_surface);
+		this->_texture = SDL_CreateTextureFromSurface(renderer, _surface);
 
 		if (this->_texture == NULL) {
 			cout << "Object loadImage::SDL_CreateTextureFromSurface: " << SDL_GetError() << endl;
 		}
 		else {
-			SDL_FreeSurface(this->_surface);
+			SDL_FreeSurface(_surface);
+			_surface = NULL;
 		}
 	}
 }
@@ -104,15 +104,6 @@ void Object::showImageWithMouse(SDL_Renderer* renderer, SDL_Event& event) {
 
 void Object::free() {
 	cout << "Call free()" << endl;
-	/*if (this->_surface != NULL)
-	{
-		cout << "Call SDL_FreeSurface" << endl;
-		SDL_FreeSurface(this->_surface);
-		this->_surface = NULL;
-		cout << SDL_GetError() << endl;
-	}*/
-	cout << "surface = " << this->_surface << endl;
-	//this->_surface = NULL;
 
 	if (this->_texture != NULL) SDL_DestroyTexture(this->_texture);
 	this->_texture = NULL;

@@ -2,6 +2,7 @@
 #ifndef EGG_USED_TO_SHOOT_H_
 #define EGG_USED_TO_SHOOT_H_
 #include "Egg.h"
+#include "MapEggs.h"
 #include <vector>
 #include <iostream>
 using namespace std;
@@ -45,6 +46,9 @@ public:
 	void setIsFlying(bool value) { this->_isFlying = value; }
 
 	double getAngle() { return this->_angle; }
+
+	double getPosX() { return this->_pos_x; }
+	double getPosY() { return this->_pos_y; }
 public:
 	//Hiển thị ảnh với vị trí rect
 	//void showImgEggWithRect(SDL_Rect rect);
@@ -53,13 +57,13 @@ public:
 	void changeDirectionToShoot(SDL_Renderer* renderer, SDL_Event& occurEvents);
 
 	//Di chuyển quả trứng
-	void moveEgg(int typeCollision);
+	void moveEgg(SDL_Renderer* renderer, int typeCollision);
 
 	//Xử lý chung các va chạm trong game;
 	void handleCollisionAll();
 
 	//Xử lý va chạm giữa trứng đạn với trứng mục tiêu
-	void handleCollisionEggWithEggs();
+	//void handleCollisionEggWithEggs(MapEggs mapEggs);
 
 	//Xử lý va chạm giữa trứng đạn với tường
 	void handleCollisionEggWithWall();

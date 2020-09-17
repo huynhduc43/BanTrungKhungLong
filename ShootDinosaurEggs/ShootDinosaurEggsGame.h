@@ -5,6 +5,7 @@
 #include "Egg.h"
 #include "SupportFunctions.h"
 #include "EggUsedToShoot.h"
+#include "MapEggs.h"
 #include <vector>
 using namespace SDL_SupportFunc;
 
@@ -15,7 +16,7 @@ private:
 	//vector<SDL_Texture*> _listTexture;
 	//vector<SDL_Rect> _listRect;
 
-	
+	MapEggs _mapEggs;
 
 	EggUsedToShoot _eggShoot;
 	Object _arrow;
@@ -47,7 +48,9 @@ public:
 	//SDL_Texture* LoadImage(SDL_Renderer* renderer, SDL_Rect rect, string file_path);
 	void showImageWithTexture_Rect(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect rect);
 	
+	int handleCollisionAll(SDL_Renderer* renderer);
 
+	void handleCollisionEggWithMapEggs(SDL_Renderer* renderer, int typeCollision);
 
 	void playGame(SDL_Renderer* renderer, SDL_Event& mainEvent);
 };
